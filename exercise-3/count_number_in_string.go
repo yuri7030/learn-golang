@@ -11,6 +11,7 @@ func main() {
 	var originString string
 	var tempNumber string
 	var numbers []int
+	numberMap := make(map[int]bool)
 
 	originString = os.Args[1]
 	for _, char := range originString {
@@ -21,10 +22,16 @@ func main() {
 		} else {
 			if tempNumber != "" {
 				number, _ := strconv.Atoi(tempNumber)
-				numbers = append(numbers, number)
+				if numberMap[number] == false {
+					numberMap[number] = true
+				}
 			}
 			tempNumber = ""
 		}
+	}
+
+	for key, _ := range numberMap {
+		numbers = append(numbers, key)
 	}
 
 	fmt.Println(len(numbers), "("+strings.Trim(fmt.Sprint(numbers), "[]")+")")
